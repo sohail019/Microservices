@@ -14,6 +14,39 @@ declare global {
 }
 
 /**
+ * Extract safe properties from error for logging
+ */
+const extractErrorInfo = (error: any): object => {
+  if (!error) return { message: "Unknown error" };
+
+  const errorInfo: Record<string, any> = {};
+
+  // Include basic error properties
+  if (error.message) errorInfo.message = error.message;
+  if (error.name) errorInfo.name = error.name;
+  if (error.code) errorInfo.code = error.code;
+
+  // For Axios errors, extract relevant data without circular references
+  if (axios.isAxiosError(error)) {
+    errorInfo.isAxiosError = true;
+
+    if (error.response) {
+      errorInfo.status = error.response.status;
+      errorInfo.statusText = error.response.statusText;
+      errorInfo.data = error.response.data;
+    }
+
+    if (error.config) {
+      errorInfo.url = error.config.url;
+      errorInfo.method = error.config.method;
+      // Don't include config.headers as it might contain sensitive data
+    }
+  }
+
+  return errorInfo;
+};
+
+/**
  * Authentication middleware that validates JWT tokens with the auth service
  * This doesn't handle authentication itself, but verifies tokens with auth-service
  */
@@ -63,7 +96,22 @@ export const authenticate = async (
         });
       }
     } catch (error) {
-      logger.error("Error validating token with auth service:", error);
+      // Safely extract error information
+      const errorInfo = extractErrorInfo(error);
+      logger.error("Error validating token with auth service:", errorInfo);
+
+      // Check if it's a connection error
+      if (axios.isAxiosError(error) && !error.response) {
+        res.status(503).json({
+          success: false,
+          error: {
+            message: "Auth service is unavailable, please try again later",
+          },
+        });
+        return;
+      }
+
+      // Regular authentication error
       res.status(401).json({
         success: false,
         error: {
@@ -72,7 +120,10 @@ export const authenticate = async (
       });
     }
   } catch (error) {
-    logger.error("Auth middleware error:", error);
+    // Safely extract error information
+    const errorInfo = extractErrorInfo(error);
+    logger.error("Auth middleware error:", errorInfo);
+
     res.status(500).json({
       success: false,
       error: {
