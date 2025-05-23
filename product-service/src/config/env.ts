@@ -1,0 +1,21 @@
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
+
+export const env = {
+  // Server
+  port: process.env.PORT || 3003,
+  nodeEnv: process.env.NODE_ENV || "development",
+
+  // Database
+  dbUri:
+    process.env.DB_URI ||
+    "mongodb+srv://sohail019:Sohail123@cluster0.3xddwjw.mongodb.net/product_service?",
+
+  // Logging
+  logLevel: process.env.LOG_LEVEL || "info",
+
+  // Services
+  authServiceUrl: process.env.AUTH_SERVICE_URL || "http://localhost:3001",
+};
