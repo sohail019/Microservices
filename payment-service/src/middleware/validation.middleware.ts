@@ -56,5 +56,5 @@ export const refundPaymentSchema = Joi.object({
 });
 
 export const seedPaymentsSchema = Joi.object({
-  count: Joi.number().integer().min(1).max(100),
+  count: Joi.number().integer().min(1),
 });

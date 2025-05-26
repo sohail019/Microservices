@@ -574,7 +574,8 @@ export const seedPayments = async (
     const types = Object.values(PAYMENT_TYPES);
 
     for (let i = 0; i < count; i++) {
-      const userId = `user_${faker.string.uuid()}`;
+      // const userId = `user_${faker.string.uuid()}`;
+      const userId = `682f30bae25e78c3720b8844`;
       const orderId = `order_${faker.string.uuid()}`;
 
       const status = faker.helpers.arrayElement(statuses);
