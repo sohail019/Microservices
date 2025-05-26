@@ -47,7 +47,7 @@ export const getUserShippingAddress = async (userId: string): Promise<any> => {
       throw new Error("User not found");
     }
 
-    return user.address || {};
+    return user.address || "No shipping address available";
   } catch (error) {
     logger.error("Error fetching user shipping address:", error);
     throw new Error(`Error fetching user shipping address: ${error.message}`);

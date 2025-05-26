@@ -74,5 +74,5 @@ export const cancelOrderSchema = Joi.object({
 
 // Seed orders validation schema
 export const seedOrdersSchema = Joi.object({
-  count: Joi.number().integer().min(1).max(100).optional(),
+  count: Joi.number().integer().min(1).optional(),
 });

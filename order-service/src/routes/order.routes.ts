@@ -73,13 +73,13 @@ router.get(
 );
 
 // Admin routes
-router.get("/", isAdmin, orderController.getAllOrders);
-router.get("/user/:userId", isAdmin, orderController.getOrdersByUserId);
+router.get("/getAllOrders", orderController.getAllOrders);
+router.get("/user/:userId", orderController.getOrdersByUserId);
 
 // Seeding utility (admin only)
 router.post(
   "/seed-orders",
-  isAdmin,
+  // isAdmin,
   validate(seedOrdersSchema),
   orderController.seedOrders
 );
