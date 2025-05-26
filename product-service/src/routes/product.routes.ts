@@ -21,7 +21,7 @@ router.post("/seeding", productController.seedProducts);
 
 // Protected routes (require JWT token)
 router.post(
-  "/",
+  "/create",
   authenticate,
   validate(createProductSchema),
   productController.createProduct

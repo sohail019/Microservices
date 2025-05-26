@@ -427,12 +427,16 @@ export const seedProducts = async (count: number = 50) => {
   try {
     logger.debug("Seeding products", { count });
 
+    // Get existing product count for unique slug generation
+    const existingCount = await Product.countDocuments();
+
     const products = [];
     const categories = ["electronics", "clothing", "books", "home", "sports"];
     const brands = ["apple", "samsung", "nike", "amazon", "sony"];
 
     for (let i = 0; i < count; i++) {
-      const name = `Test Product ${i + 1}`;
+      const uniqueIndex = existingCount + i;
+      const name = `Test Product ${uniqueIndex + 1}`;
       const slug = (Product as any).generateSlug(name);
       const category =
         categories[Math.floor(Math.random() * categories.length)];
@@ -440,7 +444,7 @@ export const seedProducts = async (count: number = 50) => {
 
       products.push({
         name,
-        slug: `${slug}-${i}`, // Ensure uniqueness
+        slug: `${slug}-${uniqueIndex}`, // Ensure uniqueness with global counter
         description: `Description for ${name}`,
         price: Math.floor(Math.random() * 1000) + 1,
         compareAtPrice: Math.floor(Math.random() * 1500) + 1000,
