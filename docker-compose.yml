@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./auth-service/.env
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./user-service/.env
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "3003:3003"
+    env_file:
+      - ./product-service/.env
+
+  cart-service:
+    build: ./cart-service
+    ports:
+      - "3004:3004"
+    env_file:
+      - ./cart-service/.env
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./order-service/.env
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "3006:3006"
+    env_file:
+      - ./payment-service/.env

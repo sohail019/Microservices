@@ -23,7 +23,7 @@ router.get("/auth/:authId", userController.getUserByAuthId);
 router.use(authenticate);
 
 // Routes for user to manage their own profile
-router.get("/me", userController.getMyProfile);
+router.get("/me", authenticate, userController.getMyProfile);
 router.put(
   "/me",
   validate(validators.updateUserSchema),

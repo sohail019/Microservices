@@ -19,5 +19,5 @@ export const env = {
   logLevel: process.env.LOG_LEVEL || "info",
 
   // Services
-  authServiceUrl: process.env.AUTH_SERVICE_URL || "http://localhost:3001",
+  authServiceUrl: process.env.AUTH_SERVICE_URL || "http://3.93.45.193:3001",
 };

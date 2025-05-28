@@ -121,15 +121,30 @@ export const getMyProfile = async (
   res: Response
 ): Promise<void> => {
   try {
-    // Auth middleware should set req.user.authId
-    const authId = req.user?.id;
+    // Auth middleware should set req.user.id
+    const authId = req.user?.userId;
+    console.log("Auth ID:", authId);
+    logger.debug("Request user object:", req.user);
 
     if (!authId) {
-      res.status(401).json(errorResponse("Unauthorized"));
+      res
+        .status(401)
+        .json(
+          errorResponse(
+            "Authentication middleware not properly configured or user not authenticated"
+          )
+        );
       return;
     }
 
     const user = await userService.getUserByAuthId(authId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    logger.info("User profile retrieved successfully", {
+      userId: user._id,
+      email: user.email,
+    });
 
     res.status(200).json(successResponse(user));
   } catch (error) {

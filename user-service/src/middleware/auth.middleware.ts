@@ -72,7 +72,7 @@ export const authenticate = async (
     try {
       // Validate token with auth-service
       const response = await axios.post(
-        `${env.authServiceUrl}/api/auth/validate-token`,
+        `${env.authServiceUrl}/validate-token`,
         {},
         {
           headers: {
@@ -84,6 +84,10 @@ export const authenticate = async (
       if (response.data.valid) {
         // Token is valid, attach user info to request
         req.user = response.data.user;
+        logger.info("Token validated successfully", {
+          userId: req.user.id,
+          role: req.user.role,
+        });
         next();
       } else {
         // Token is invalid
