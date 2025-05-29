@@ -15,7 +15,7 @@ export const getProductById = async (
     logger.debug("Fetching product details", { productId });
 
     const response = await axios.get(
-      `${env.productServiceUrl}/products/${productId}`
+      `${env.productServiceUrl}/api/products/${productId}`
     );
 
     if (response.data && response.data.success) {
