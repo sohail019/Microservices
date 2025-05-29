@@ -71,6 +71,7 @@ export const authenticate = async (
 
     try {
       // Validate token with auth-service
+      logger.debug("Validating token with auth service", { token });
       const response = await axios.post(
         `${env.authServiceUrl}/validate-token`,
         {},
