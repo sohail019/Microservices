@@ -4,7 +4,7 @@ import { ProductDto } from "../interfaces/cart.interface";
 import { createLogger } from "../utils/logger";
 
 const logger = createLogger("ProductService");
-const PRODUCT_SERVICE_URL = `${env.productServiceUrl}/products`;
+const PRODUCT_SERVICE_URL = `${env.productServiceUrl}/api/products`;
 
 /**
  * Get product by ID from product service
