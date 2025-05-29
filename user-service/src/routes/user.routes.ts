@@ -46,7 +46,7 @@ router.patch(
 );
 
 // Admin routes for user management
-router.get("/getAll", userController.getUsers);
+router.get("/", userController.getUsers);
 router.get("/:id", userController.getUserById);
 router.put(
   "/:id",
