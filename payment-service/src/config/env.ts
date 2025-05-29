@@ -17,9 +17,15 @@ export const env = {
   logLevel: process.env.LOG_LEVEL || "info",
 
   // Services
-  authServiceUrl: process.env.AUTH_SERVICE_URL || "http://localhost:3001",
-  userServiceUrl: process.env.USER_SERVICE_URL || "http://localhost:3002",
-  orderServiceUrl: process.env.ORDER_SERVICE_URL || "http://localhost:3005",
+  authServiceUrl:
+    process.env.AUTH_SERVICE_URL ||
+    "http://ec2-107-20-162-76.compute-1.amazonaws.com:3001",
+  userServiceUrl:
+    process.env.USER_SERVICE_URL ||
+    "http://ec2-23-21-140-204.compute-1.amazonaws.com:3002",
+  orderServiceUrl:
+    process.env.ORDER_SERVICE_URL ||
+    "http://ec2-98-83-192-35.compute-1.amazonaws.com:3005",
 
   // Payment Gateways
   stripe: {

@@ -17,5 +17,7 @@ export const env = {
   logLevel: process.env.LOG_LEVEL || "info",
 
   // Services
-  authServiceUrl: process.env.AUTH_SERVICE_URL || "http://localhost:3001",
+  authServiceUrl:
+    process.env.AUTH_SERVICE_URL ||
+    "http://ec2-107-20-162-76.compute-1.amazonaws.com:3001",
 };

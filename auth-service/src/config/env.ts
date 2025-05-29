@@ -31,5 +31,7 @@ export const env = {
   appleClientSecret: process.env.APPLE_CLIENT_SECRET || "",
 
   // Services
-  userServiceUrl: process.env.USER_SERVICE_URL || "http://localhost:3002/api",
+  userServiceUrl:
+    process.env.USER_SERVICE_URL ||
+    "http://ec2-23-21-140-204.compute-1.amazonaws.com:3002",
 };
