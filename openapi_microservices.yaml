@@ -6,6 +6,18 @@ info:
 schemes:
   - http
 
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header
+    x-amazon-apigateway-authtype: "custom"
+    x-amazon-apigateway-authorizer:
+      type: "token"
+      authorizerUri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:654485375297:function:microservices-auth-authorizer/invocations"
+      authorizerResultTtlInSeconds: 300
+      identitySource: "method.request.header.Authorization"
+
 paths:
   /api/payments:
     get:
@@ -588,13 +600,13 @@ paths:
         type: http_proxy
         passthroughBehavior: when_no_match
 
-  /api/payments/{paymentId}/refund:
+  /api/payments/{id}/refund:
     post:
       summary: Refund Payment
       consumes:
         - application/json
       parameters:
-        - name: paymentId
+        - name: id
           in: path
           required: true
           type: string
@@ -612,10 +624,10 @@ paths:
         "200":
           description: Successful response
       x-amazon-apigateway-integration:
-        uri: http://ec2-54-165-176-226.compute-1.amazonaws.com:3006/api/payments/{paymentId}/refund
+        uri: http://ec2-54-165-176-226.compute-1.amazonaws.com:3006/api/payments/{id}/refund
         httpMethod: POST
         requestParameters:
-          integration.request.path.paymentId: method.request.path.paymentId
+          integration.request.path.id: method.request.path.id
         type: http_proxy
         passthroughBehavior: when_no_match
 
@@ -845,7 +857,7 @@ paths:
         "200":
           description: Logged out successfully
       security:
-        - Bearer: []
+        - api_key: []
       x-amazon-apigateway-integration:
         uri: http://ec2-107-20-162-76.compute-1.amazonaws.com:3001/api/auth/logout
         httpMethod: POST
