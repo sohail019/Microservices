@@ -73,6 +73,14 @@ export const addToCart = async (
 
     // Check if product is available
     const product = await getProductById(itemData.productId);
+    console.log("Product details:", product);
+    logger.debug("Product details fetched", {
+      productId: itemData.productId,
+      isAvailable: product?.isAvailable,
+      quantity: product?.quantity,
+    });
+    // If product not found or not available, throw error
+
     if (!product) {
       throw new Error(CART_ERRORS.PRODUCT_NOT_FOUND);
     }
