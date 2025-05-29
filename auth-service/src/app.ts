@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(apiLimiter);
 
 // Routes
-// app.use("/api/auth", authRoutes);
-app.use("/", authRoutes);
+app.use("/api/auth", authRoutes);
+// app.use("/", authRoutes);
 
 // Root endpoint
 app.get("/", (req, res) => {
